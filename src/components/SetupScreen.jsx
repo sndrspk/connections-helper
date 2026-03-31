@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const WORKER_URL = 'https://connections-temp.sndrspk.workers.dev/puzzle'
+const WORKER_URL = 'https://connections-proxy.sndrspk.workers.dev/puzzle'
 
 function getPuzzleUrl() {
   // In dev, use Vite proxy. In production, use Cloudflare Worker proxy.
