@@ -1,6 +1,13 @@
 import { useState } from 'react'
 
-const PROXY_URL = '/api/puzzle'
+function getPuzzleUrl() {
+  const today = new Date().toISOString().slice(0, 10)
+  // In dev, use Vite proxy. In production, fetch directly from NYT.
+  if (import.meta.env.DEV) {
+    return '/api/puzzle'
+  }
+  return `https://www.nytimes.com/svc/connections/v2/${today}.json`
+}
 
 export default function SetupScreen({ onStart }) {
   const [mode, setMode] = useState('manual')
@@ -48,7 +55,7 @@ export default function SetupScreen({ onStart }) {
     setLoading(true)
     setError('')
     try {
-      const res = await fetch(PROXY_URL)
+      const res = await fetch(getPuzzleUrl())
       if (!res.ok) throw new Error(`Failed to fetch puzzle (${res.status})`)
       const data = await res.json()
 
@@ -121,8 +128,7 @@ export default function SetupScreen({ onStart }) {
       ) : (
         <div className="fetch-section">
           <p>
-            Fetch today&apos;s puzzle words from the NYT Connections API.<br />
-            Requires the dev server proxy to be running (included in <code>npm run dev</code>).
+            Fetch today&apos;s puzzle words from the NYT Connections API.
           </p>
           {loading ? (
             <div className="fetch-loading">

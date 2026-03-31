@@ -32,7 +32,7 @@ src/
 - **Single DndContext** wraps both the puzzle grid and all swim lanes. Tiles can be dragged between any containers.
 - **State model**: `gridTiles` (array of tiles in the main grid) and `lanes` (array of 4 lane objects, each with `id`, `description`, and `tiles`). A tile exists in exactly one location.
 - **Tile identity**: Each tile gets a stable `id` (`tile-0` through `tile-15`) assigned at puzzle start.
-- **NYT API proxy**: Vite dev server proxies `/api/puzzle` → `https://www.nytimes.com/svc/connections/v2/current.json` to avoid CORS. Only works in dev mode.
+- **NYT API proxy**: Vite dev server proxies `/api/puzzle` → `https://www.nytimes.com/svc/connections/v2/YYYY-MM-DD.json` to avoid CORS. Only works in dev mode.
 - **Colors**: Four custom lane colors (purple, blue, orange, green) intentionally different from NYT's official yellow/green/blue/purple to avoid confusion with difficulty levels.
 
 ## Commands

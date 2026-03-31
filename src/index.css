@@ -4,14 +4,14 @@
   --tile-bg: #efefe6;
   --tile-hover: #e0e0d6;
   --tile-text: #000000;
-  --lane-1: #c77dba;
-  --lane-2: #7eb5d6;
+  --lane-1: #e07bad;
+  --lane-2: #a0826d;
   --lane-3: #f0b27a;
-  --lane-4: #82c9a1;
-  --lane-1-light: #f0dded;
-  --lane-2-light: #daeaf4;
+  --lane-4: #7ecaca;
+  --lane-1-light: #fce0ec;
+  --lane-2-light: #e6d7cd;
   --lane-3-light: #fce4cc;
-  --lane-4-light: #d4f0df;
+  --lane-4-light: #d4f0f0;
   --border: #dcdcdc;
   --input-bg: #f5f5f5;
 }

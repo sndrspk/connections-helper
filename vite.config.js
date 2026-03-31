@@ -9,7 +9,10 @@ export default defineConfig({
       '/api/puzzle': {
         target: 'https://www.nytimes.com',
         changeOrigin: true,
-        rewrite: () => '/svc/connections/v2/current.json',
+        rewrite: () => {
+          const today = new Date().toISOString().slice(0, 10)
+          return `/svc/connections/v2/${today}.json`
+        },
       },
     },
   },
