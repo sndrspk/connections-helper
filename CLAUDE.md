@@ -10,6 +10,7 @@ A web app to help solve the daily NYT Connections puzzle without wasting guesses
 - **@dnd-kit** for drag-and-drop (core + sortable + utilities)
 - **LocalStorage** for state persistence across browser sessions
 - **GitHub Pages** for deployment (auto-deploys on push to `main`)
+- **Cloudflare Worker** as a CORS proxy for the NYT API in production
 - **Vite proxy** to fetch today's NYT puzzle in dev mode (avoids CORS issues)
 
 ## Project Structure
@@ -26,6 +27,10 @@ src/
     ├── PuzzleGrid.jsx        # 4×4 grid of unsorted tiles (droppable)
     ├── SwimLane.jsx          # Colored lane with description input (droppable)
     └── Tile.jsx              # Draggable tile (used in both grid and lanes)
+
+worker/
+├── index.js                  # Cloudflare Worker: CORS proxy for NYT API
+└── wrangler.toml             # Cloudflare Worker config
 ```
 
 ## Key Architecture Decisions
@@ -33,13 +38,16 @@ src/
 - **Single DndContext** wraps both the puzzle grid and all swim lanes. Tiles can be dragged between any containers.
 - **State model**: `gridTiles` (array of tiles in the main grid) and `lanes` (array of 4 lane objects, each with `id`, `description`, and `tiles`). A tile exists in exactly one location.
 - **Tile identity**: Each tile gets a stable `id` (`tile-0` through `tile-15`) assigned at puzzle start.
-- **NYT API**: Fetches from `https://www.nytimes.com/svc/connections/v2/YYYY-MM-DD.json`. In dev mode, a Vite proxy handles CORS. In production, fetches directly (may be blocked by NYT CORS policy).
+- **NYT API**: Fetches from `https://www.nytimes.com/svc/connections/v2/YYYY-MM-DD.json`. In dev mode, a Vite proxy handles CORS. In production, a Cloudflare Worker (`https://connections-temp.sndrspk.workers.dev/puzzle`) proxies the request with CORS headers.
 - **Colors**: Four custom lane colors (pink, brown, orange, pastel cyan) intentionally different from NYT's official yellow/green/blue/purple to avoid confusion with difficulty levels.
 
 ## Deployment
 
-- Hosted on GitHub Pages at `https://sndrspk.github.io/connections-helper/`
-- Auto-deploys via GitHub Actions on push to `main` (see `.github/workflows/deploy.yml`)
+- **Frontend**: Hosted on GitHub Pages at `https://sndrspk.github.io/connections-helper/`
+  - Auto-deploys via GitHub Actions on push to `main` (see `.github/workflows/deploy.yml`)
+- **API proxy**: Cloudflare Worker at `https://connections-temp.sndrspk.workers.dev`
+  - Deploy manually: `cd worker && wrangler deploy`
+  - Free tier (100k requests/day), runs on Cloudflare's edge — no local process needed
 - LocalStorage ensures each device/browser has its own independent state
 
 ## Commands
