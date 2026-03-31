@@ -1,12 +1,13 @@
 import { useState } from 'react'
 
+const WORKER_URL = 'https://connections-proxy.sndrspk.workers.dev/puzzle'
+
 function getPuzzleUrl() {
-  const today = new Date().toISOString().slice(0, 10)
-  // In dev, use Vite proxy. In production, fetch directly from NYT.
+  // In dev, use Vite proxy. In production, use Cloudflare Worker proxy.
   if (import.meta.env.DEV) {
     return '/api/puzzle'
   }
-  return `https://www.nytimes.com/svc/connections/v2/${today}.json`
+  return WORKER_URL
 }
 
 export default function SetupScreen({ onStart }) {
