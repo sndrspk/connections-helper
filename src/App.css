@@ -60,12 +60,18 @@
 
 .word-inputs {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
+@media (max-width: 480px) {
+  .word-inputs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .word-inputs input {
-  padding: 10px 12px;
+  padding: 10px 8px;
   border: 2px solid var(--border);
   border-radius: 8px;
   font-family: inherit;
@@ -75,6 +81,9 @@
   text-align: center;
   background: var(--input-bg);
   transition: border-color 0.15s;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .word-inputs input:focus {
