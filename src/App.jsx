@@ -169,7 +169,7 @@ function App() {
       <div className="app">
         <header className="app-header">
           <h1>Connections Helper</h1>
-          <p>Use this as a notepad for today's Connections to sort your puzzle words. Drag tiles into swim lanes to group them — try out ideas before filling them into the real puzzle.</p>
+          <p>Use this as a notepad for today's Connections to sort your puzzle words. Drag tiles into swim lanes to group them. Try out ideas before filling them into the real puzzle.</p>
         </header>
         <SetupScreen onStart={startPuzzle} />
       </div>
@@ -180,7 +180,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Connections Helper</h1>
-        <p>Use this as a notepad for today's Connections. Drag tiles into swim lanes to try out groupings before filling them into the real puzzle.</p>
+        <p>Use this as a notepad for today's Connections to sort your puzzle words. Drag tiles into swim lanes to group them. Try out ideas before filling them into the real puzzle.</p>
       </header>
 
       <DndContext
