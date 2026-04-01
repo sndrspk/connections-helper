@@ -172,6 +172,9 @@ function App() {
           <p>Use this as a notepad for today's Connections to sort your puzzle words. Drag tiles into swim lanes to group them. Try out ideas before filling them into the real puzzle.</p>
         </header>
         <SetupScreen onStart={startPuzzle} />
+        <footer className="app-footer">
+          Made with ❤️ and 🤖 (Claude Code). This tool exists purely as a thinking aid for today's NYT Connections puzzle. It has no commercial purpose.
+        </footer>
       </div>
     )
   }
@@ -225,6 +228,9 @@ function App() {
           New Puzzle
         </button>
       </div>
+      <footer className="app-footer">
+        Made with ❤️ and 🤖 (Claude Code). This tool exists purely as a thinking aid for today's NYT Connections puzzle. It has no commercial purpose.
+      </footer>
     </div>
   )
 }
