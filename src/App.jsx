@@ -22,10 +22,10 @@ const LANE_COLORS = [
 
 function createInitialLanes() {
   return [
-    { id: 'lane-0', description: '', tiles: [] },
-    { id: 'lane-1', description: '', tiles: [] },
-    { id: 'lane-2', description: '', tiles: [] },
-    { id: 'lane-3', description: '', tiles: [] },
+    { id: 'lane-0', description: '', tiles: [], locked: false },
+    { id: 'lane-1', description: '', tiles: [], locked: false },
+    { id: 'lane-2', description: '', tiles: [], locked: false },
+    { id: 'lane-3', description: '', tiles: [], locked: false },
   ]
 }
 
@@ -85,6 +85,8 @@ function App() {
     let tile = gridTiles.find(t => t.id === active.id)
     if (!tile) {
       for (const lane of lanes) {
+        // Don't allow dragging from locked lanes
+        if (lane.locked) continue
         tile = lane.tiles.find(t => t.id === active.id)
         if (tile) break
       }
@@ -125,6 +127,11 @@ function App() {
 
     if (!targetContainer || source.container === targetContainer) return
 
+    // Don't allow drops onto or from locked lanes
+    const sourceLaneObj = lanes.find(l => l.id === source.container)
+    const targetLaneObj = lanes.find(l => l.id === targetContainer)
+    if (sourceLaneObj?.locked || targetLaneObj?.locked) return
+
     // Get the tile data
     let tileData
     if (source.container === 'grid') {
@@ -161,6 +168,12 @@ function App() {
   const updateLaneDescription = useCallback((laneId, description) => {
     setLanes(prev => prev.map(l =>
       l.id === laneId ? { ...l, description } : l
+    ))
+  }, [])
+
+  const toggleLaneLock = useCallback((laneId) => {
+    setLanes(prev => prev.map(l =>
+      l.id === laneId ? { ...l, locked: !l.locked } : l
     ))
   }, [])
 
@@ -205,15 +218,21 @@ function App() {
 
         <div className="section-label">Swim Lanes</div>
         <div className="swim-lanes">
-          {lanes.map((lane, index) => (
-            <SwimLane
-              key={lane.id}
-              lane={lane}
-              color={LANE_COLORS[index]}
-              isDragOver={dragOverTarget === lane.id}
-              onDescriptionChange={(desc) => updateLaneDescription(lane.id, desc)}
-            />
-          ))}
+          {[...lanes]
+            .sort((a, b) => (a.locked === b.locked ? 0 : a.locked ? 1 : -1))
+            .map((lane) => {
+              const originalIndex = lanes.findIndex(l => l.id === lane.id)
+              return (
+                <SwimLane
+                  key={lane.id}
+                  lane={lane}
+                  color={LANE_COLORS[originalIndex]}
+                  isDragOver={!lane.locked && dragOverTarget === lane.id}
+                  onDescriptionChange={(desc) => updateLaneDescription(lane.id, desc)}
+                  onToggleLock={() => toggleLaneLock(lane.id)}
+                />
+              )
+            })}
         </div>
 
         <DragOverlay>
