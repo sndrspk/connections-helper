@@ -64,4 +64,5 @@ npm run preview      # Preview production build
 - The app uses `@dnd-kit/core` (not `react-beautiful-dnd` or HTML5 drag) for better touch support and flexibility.
 - Paste support: in manual entry mode, pasting a comma-separated or newline-separated list into any input auto-fills subsequent inputs.
 - State is saved to LocalStorage on every change. Clicking "New Puzzle" clears saved state.
+- **Double-click to move**: Double-clicking a tile in the puzzle grid sends it to the first swim lane with fewer than 4 tiles (skipping locked lanes). Double-clicking a tile in a swim lane sends it back to the puzzle grid. Locked lane tiles cannot be double-clicked.
 - Font: Libre Franklin loaded from Google Fonts (similar to NYT's editorial style).

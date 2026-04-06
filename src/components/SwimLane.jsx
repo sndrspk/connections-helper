@@ -1,7 +1,7 @@
 import { useDroppable } from '@dnd-kit/core'
 import Tile from './Tile'
 
-export default function SwimLane({ lane, color, isDragOver, onDescriptionChange, onToggleLock }) {
+export default function SwimLane({ lane, color, isDragOver, onDescriptionChange, onToggleLock, onTileDoubleClick }) {
   const { setNodeRef } = useDroppable({ id: lane.id, disabled: lane.locked })
   const showLock = lane.tiles.length === 4
 
@@ -41,6 +41,7 @@ export default function SwimLane({ lane, color, isDragOver, onDescriptionChange,
             tile={tile}
             className={`lane-tile${lane.locked ? ' locked-tile' : ''}`}
             disabled={lane.locked}
+            onDoubleClick={lane.locked ? undefined : onTileDoubleClick}
           />
         ))}
       </div>
