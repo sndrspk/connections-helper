@@ -171,6 +171,33 @@ function App() {
     ))
   }, [])
 
+  const handleTileDoubleClick = useCallback((tileId) => {
+    const location = findTileLocation(tileId)
+    if (!location) return
+
+    if (location.container === 'grid') {
+      // Move from grid to first lane with fewer than 4 tiles
+      const targetLane = lanes.find(l => !l.locked && l.tiles.length < 4)
+      if (!targetLane) return
+      const tile = gridTiles.find(t => t.id === tileId)
+      if (!tile) return
+      setGridTiles(prev => prev.filter(t => t.id !== tileId))
+      setLanes(prev => prev.map(l =>
+        l.id === targetLane.id ? { ...l, tiles: [...l.tiles, tile] } : l
+      ))
+    } else {
+      // Move from lane back to grid
+      const sourceLane = lanes.find(l => l.id === location.container)
+      if (!sourceLane || sourceLane.locked) return
+      const tile = sourceLane.tiles.find(t => t.id === tileId)
+      if (!tile) return
+      setLanes(prev => prev.map(l =>
+        l.id === location.container ? { ...l, tiles: l.tiles.filter(t => t.id !== tileId) } : l
+      ))
+      setGridTiles(prev => [...prev, tile])
+    }
+  }, [findTileLocation, gridTiles, lanes])
+
   const toggleLaneLock = useCallback((laneId) => {
     setLanes(prev => prev.map(l =>
       l.id === laneId ? { ...l, locked: !l.locked } : l
@@ -211,6 +238,7 @@ function App() {
           <PuzzleGrid
             tiles={gridTiles}
             isDragOver={dragOverTarget === 'puzzle-grid-droppable'}
+            onTileDoubleClick={handleTileDoubleClick}
           />
         </div>
 
@@ -230,6 +258,7 @@ function App() {
                   isDragOver={!lane.locked && dragOverTarget === lane.id}
                   onDescriptionChange={(desc) => updateLaneDescription(lane.id, desc)}
                   onToggleLock={() => toggleLaneLock(lane.id)}
+                  onTileDoubleClick={handleTileDoubleClick}
                 />
               )
             })}
