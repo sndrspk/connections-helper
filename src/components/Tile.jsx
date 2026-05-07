@@ -5,7 +5,7 @@ function adaptiveStyle(text, basePx) {
   const len = text.length
   if (len <= 5) return { fontSize: `${basePx}px` }
   if (len <= 6) return { fontSize: `${basePx - 2}px`, letterSpacing: '0.3px' }
-  if (len <= 8) return { fontSize: `${basePx - 3}px`, letterSpacing: '0.1px', padding: '14px 6px' }
+  if (len <= 7) return { fontSize: `${basePx - 3}px`, letterSpacing: '0.1px', padding: '14px 6px' }
   return { fontSize: `${basePx - 4}px`, letterSpacing: '0px', padding: '14px 4px' }
 }
 
