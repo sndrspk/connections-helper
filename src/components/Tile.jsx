@@ -3,10 +3,10 @@ import { useDraggable } from '@dnd-kit/core'
 
 function adaptiveFontSize(text, basePx) {
   const len = text.length
-  if (len <= 6) return basePx
-  if (len <= 8) return basePx - 1
-  if (len <= 10) return basePx - 2
-  return basePx - 3
+  if (len <= 5) return basePx
+  if (len <= 7) return basePx - 2
+  if (len <= 9) return basePx - 3
+  return basePx - 4
 }
 
 export default function Tile({ tile, className = 'tile', disabled = false, onDoubleClick }) {
