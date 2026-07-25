@@ -211,6 +211,7 @@
   background: var(--tile-bg);
   border-radius: 8px;
   text-align: center;
+  font-family: 'Barlow Semi Condensed', 'Barlow', sans-serif;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -395,6 +396,7 @@
   background: var(--tile-bg);
   border-radius: 8px;
   text-align: center;
+  font-family: 'Barlow Semi Condensed', 'Barlow', sans-serif;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;

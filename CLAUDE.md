@@ -65,4 +65,4 @@ npm run preview      # Preview production build
 - Paste support: in manual entry mode, pasting a comma-separated or newline-separated list into any input auto-fills subsequent inputs.
 - State is saved to LocalStorage on every change. Clicking "New Puzzle" clears saved state.
 - **Double-click to move**: Double-clicking a tile in the puzzle grid sends it to the first swim lane with fewer than 4 tiles (skipping locked lanes). Double-clicking a tile in a swim lane sends it back to the puzzle grid. Locked lane tiles cannot be double-clicked.
-- Font: Libre Franklin loaded from Google Fonts (similar to NYT's editorial style).
+- Font: Barlow loaded from Google Fonts for the app; puzzle grid tiles use Barlow Semi Condensed to fit longer words without wrapping.
