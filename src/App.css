@@ -174,7 +174,7 @@
 }
 
 .puzzle-grid {
-  --tile-fs: 14px;
+  --tile-fs: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
@@ -201,12 +201,11 @@
 /* Mobile: 3 columns gives each tile ~35% more width, so the words can be set larger */
 @media (max-width: 560px) {
   .puzzle-grid {
-    --tile-fs: 18px;
+    /* A 3-column tile is roughly (100vw - 72px) / 3 wide. Scaling the base
+       with that, rather than stepping it, keeps 9-letter words on one line
+       on 360px phones while still reaching 18px from ~390px up. */
+    --tile-fs: clamp(15px, calc((33.33vw - 24px) * 0.17), 18px);
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .lane-tiles {
-    --tile-fs: 15px;
   }
 
   .drag-overlay-tile {
@@ -298,7 +297,7 @@
 }
 
 .lane-tiles {
-  --tile-fs: 13px;
+  --tile-fs: 15px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -415,7 +414,7 @@
   border-radius: 8px;
   text-align: center;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
