@@ -174,6 +174,7 @@
 }
 
 .puzzle-grid {
+  --tile-fs: 14px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
@@ -197,6 +198,22 @@
   justify-content: center;
 }
 
+/* Mobile: 3 columns gives each tile ~35% more width, so the words can be set larger */
+@media (max-width: 560px) {
+  .puzzle-grid {
+    --tile-fs: 18px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .lane-tiles {
+    --tile-fs: 15px;
+  }
+
+  .drag-overlay-tile {
+    font-size: 16px;
+  }
+}
+
 .empty-message {
   font-size: 13px;
   color: #aaa;
@@ -211,8 +228,8 @@
   background: var(--tile-bg);
   border-radius: 8px;
   text-align: center;
-  font-family: 'Barlow Semi Condensed', 'Barlow', sans-serif;
-  font-size: 14px;
+  font-family: inherit;
+  font-size: var(--tile-fs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -281,6 +298,7 @@
 }
 
 .lane-tiles {
+  --tile-fs: 13px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -292,7 +310,7 @@
 .lane-tile {
   padding: 8px 14px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: var(--tile-fs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -396,7 +414,7 @@
   background: var(--tile-bg);
   border-radius: 8px;
   text-align: center;
-  font-family: 'Barlow Semi Condensed', 'Barlow', sans-serif;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;

@@ -65,4 +65,5 @@ npm run preview      # Preview production build
 - Paste support: in manual entry mode, pasting a comma-separated or newline-separated list into any input auto-fills subsequent inputs.
 - State is saved to LocalStorage on every change. Clicking "New Puzzle" clears saved state.
 - **Double-click to move**: Double-clicking a tile in the puzzle grid sends it to the first swim lane with fewer than 4 tiles (skipping locked lanes). Double-clicking a tile in a swim lane sends it back to the puzzle grid. Locked lane tiles cannot be double-clicked.
-- Font: Barlow loaded from Google Fonts for the app; puzzle grid tiles use Barlow Semi Condensed to fit longer words without wrapping.
+- Font: Geist loaded from Google Fonts, used everywhere (including tiles).
+- **Responsive grid**: the puzzle grid is 4 columns on desktop and 3 columns below 560px, so mobile tiles are wider and their words can be set larger. The base tile font size lives in the `--tile-fs` CSS variable (set on `.puzzle-grid` and `.lane-tiles`, raised in the mobile media query); `adaptiveStyle` in `Tile.jsx` scales it down by word length via `calc()`, so sizing stays in one place.
