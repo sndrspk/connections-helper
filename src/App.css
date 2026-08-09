@@ -177,6 +177,9 @@
   --tile-fs: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  /* Equalise rows even if a word needs more room than the tile min-height
+     reserves, so the board never looks ragged. */
+  grid-auto-rows: 1fr;
   gap: 8px;
   min-height: 60px;
   padding: 8px;
@@ -226,6 +229,13 @@
   padding: 14px 8px;
   background: var(--tile-bg);
   border-radius: 8px;
+  /* Reserve two lines at the smallest adaptive size (0.62 of the base, line
+     height 1.2) plus the vertical padding, so a word that wraps takes up the
+     same room as one that doesn't and every row stays the same height. */
+  min-height: calc(var(--tile-fs) * 1.49 + 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   font-family: inherit;
   font-size: var(--tile-fs);
